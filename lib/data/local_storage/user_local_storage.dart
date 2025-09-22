@@ -4,9 +4,6 @@ import '../models/user_model.dart';
 class UserLocalStorage {
   final DatabaseService _dbService = DatabaseService();
 
-  UserLocalStorage();
-  // UserLocalStorage(find);
-
   Future<List<UserModel>> getUsers() async {
     final db = await _dbService.database;
     final List<Map<String, dynamic>> maps = await db.query('users');
@@ -36,4 +33,19 @@ class UserLocalStorage {
       whereArgs: [id],
     );
   }
+
+  Future<void> reconcileBalances(List<UserModel> users) async {
+    final db = await _dbService.database;
+    await db.transaction((txn) async {
+      for (var user in users) {
+        await txn.update(
+          'users',
+          {'remainingBalance': user.remainingBalance},
+          where: 'id = ?',
+          whereArgs: [user.id],
+        );
+      }
+    });
+  }
+
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/base_controllers/user_controller.dart';
+import 'package:net_uasge/modules/user_management/controllers/user_management_controller.dart';
 import '../../../core/widgets/custom_text.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import '../../../data/models/user_model.dart';
@@ -12,7 +12,7 @@ class UserFormDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserController controller = Get.find();
+    final UserManagementController controller = Get.find();
     final isEditing = user != null;
     final TextEditingController nameController =
     TextEditingController(text: isEditing ? user!.name : '');
@@ -26,7 +26,7 @@ class UserFormDialog extends StatelessWidget {
         children: [
           CustomTextField(
             hintText: 'الاسم',
-            controllerText: nameController,
+            controllerText:  nameController,
           ),
           const SizedBox(height: 10),
           CustomTextField(

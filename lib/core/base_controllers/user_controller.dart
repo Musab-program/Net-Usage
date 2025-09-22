@@ -14,33 +14,41 @@ class UserController extends GetxController {
 
   }
 
-  void loadUsers() async {
-    final usersList = await _userRepo.getUsers();
-    users.value = usersList;
+  Future<void> loadUsers() async {
+     try {
+       final usersList = await _userRepo.getUsers();
+       users.assignAll(usersList);
+     } catch (e) {
+       Get.snackbar('خطأ', 'فشل في تحميل المستخدمين: $e');
+     }
   }
 
   Future<void> addUser(UserModel user) async {
-    // 1. منع المستخدمين المكررين
     if (users.any((existingUser) => existingUser.name.toLowerCase() == user.name.toLowerCase())) {
       Get.snackbar('خطأ', 'المستخدم موجود بالفعل');
-      return; // توقف عن تنفيذ الدالة
+      return;
+    }
+    if (user.name.isEmpty) {
+      Get.snackbar('خطأ', 'يجب عليك إدخال اسم المستخدم');
+      return;
     }
 
     await _userRepo.insertUser(user);
-    loadUsers();
-    Get.back(); // 2. إغلاق مربع الحوار بعد الإضافة
+    await loadUsers();
+    Get.back();
     Get.snackbar('نجاح', 'تمت إضافة المستخدم بنجاح');
   }
 
   Future<void> updateUser(UserModel user) async {
     await _userRepo.updateUser(user);
-    loadUsers();
-    Get.back(); // 3. إغلاق مربع الحوار بعد التعديل
-    Get.snackbar('نجاح', 'تم تعديل المستخدم بنجاح');
+    await loadUsers();
+    Get.back();
   }
 
   Future<void> deleteUser(int id) async {
     await _userRepo.deleteUser(id);
     users.removeWhere((user) => user.id == id);
+    await loadUsers();
+    Get.snackbar('نجاح', 'تم حذف المستخدم بنجاح');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:net_uasge/core/base_controllers/usage_controller.dart';
 import '../../data/local_storage/settings_local_storage.dart';
 import '../../data/local_storage/usage_local_storage.dart';
 import '../../data/local_storage/user_local_storage.dart';
@@ -25,7 +26,11 @@ class AppBindings extends Bindings {
     Get.lazyPut<SettingsRepository>(() => SettingsRepository(Get.find<SettingsLocalStorage>()));
 
 
-    Get.lazyPut<SettingsController>(() => SettingsController());
+    // Get.lazyPut<SettingsController>(() => SettingsController());
     Get.lazyPut<UserController>(() => UserController());
+    Get.lazyPut<UsageController>(() => UsageController());
+
+    Get.put<SettingsController>(SettingsController());
+
   }
 }

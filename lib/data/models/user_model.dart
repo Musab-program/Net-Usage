@@ -1,19 +1,32 @@
+import 'package:get/get.dart';
+import 'package:net_uasge/data/models/usage_model.dart';
+
 class UserModel {
   final int? id;
   final String name;
-  final double remainingBalance;
+  // اجعل remainingBalance متغيراً مراقباً باستخدام .obs
+  final remainingBalance = 0.0.obs;
+  List<UsageModel>? usageRecords;
+
+  // إضافة متغير مراقب لحالة التوسع
+  final isExpanded = false.obs;
 
   UserModel({
     this.id,
     required this.name,
-    this.remainingBalance = 0.0,
-  });
+    required double remainingBalance, // غيرنا هذا ليكون required
+    this.usageRecords,
+  }) {
+    // تعيين القيمة الأولية للمتغير المراقب
+    this.remainingBalance.value = remainingBalance;
+  }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      'remainingBalance': remainingBalance,
+      // استخدم .value للحصول على القيمة
+      'remainingBalance': remainingBalance.value,
     };
   }
 

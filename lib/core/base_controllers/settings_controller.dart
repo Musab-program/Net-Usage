@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../../data/models/settings_model.dart';
-import '../../data/repositories/settings_repository.dart';
+import 'package:net_uasge/data/models/settings_model.dart';
+import 'package:net_uasge/data/repositories/settings_repository.dart';
 
 class SettingsController extends GetxController {
   final SettingsRepository _settingsRepo = Get.find<SettingsRepository>();
@@ -14,17 +14,33 @@ class SettingsController extends GetxController {
   }
 
   void _loadGigabytePrice() async {
-    final settingsModel = await _settingsRepo.getSettings();
-    if (settingsModel != null) {
-      gigabytePrice.value = settingsModel.gigabytePrice;
-    } else {
-      await updateGigabytePrice(100.0);
+    try {
+      await _settingsRepo.initializeSettings();
+      final settingsModel = await _settingsRepo.getSettings();
+      if (settingsModel != null) {
+        gigabytePrice.value = settingsModel.gigabytePrice;
+      } else {
+        final defaultSettings = SettingsModel(gigabytePrice: 200.0);
+        await _settingsRepo.updateSettings(defaultSettings);
+        gigabytePrice.value = defaultSettings.gigabytePrice;
+      }
+    } catch (e) {
+      Get.snackbar('خطأ', 'فشل في تحميل الإعدادات: $e');
     }
   }
 
   Future<void> updateGigabytePrice(double newPrice) async {
-    final settingsModel = SettingsModel(gigabytePrice: newPrice);
-    await _settingsRepo.updateSettings(settingsModel);
-    gigabytePrice.value = newPrice;
+    try {
+      final currentSettings = await _settingsRepo.getSettings();
+      final updatedSettings = SettingsModel(
+        id: currentSettings!.id,
+        gigabytePrice: newPrice,
+      );
+      await _settingsRepo.updateSettings(updatedSettings);
+      gigabytePrice.value = newPrice;
+      Get.snackbar('نجاح', 'تم تحديث السعر بنجاح.');
+    } catch (e) {
+      Get.snackbar('خطأ', 'فشل في تحديث السعر: $e');
+    }
   }
 }

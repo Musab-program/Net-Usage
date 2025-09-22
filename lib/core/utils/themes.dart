@@ -32,12 +32,11 @@ class AppThemes {
       bodyMedium: TextStyle(color: AppColors.primaryText),
       bodySmall: TextStyle(color: AppColors.secondaryText),
     ),
-    // إضافة ثيم الزر
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(AppColors.primaryColor),
         foregroundColor: WidgetStateProperty.all(AppColors.textIcons),
-        overlayColor: WidgetStateProperty.all(AppColors.darkPrimaryColor.withOpacity(0.1)),
+        overlayColor: WidgetStateProperty.all(AppColors.darkPrimaryColor),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
@@ -45,7 +44,6 @@ class AppThemes {
         ),
       ),
     ),
-    // إضافة ثيم حقل الإدخال
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -94,12 +92,11 @@ class AppThemes {
       bodyMedium: TextStyle(color: AppColors.textIcons),
       bodySmall: TextStyle(color: AppColors.secondaryText),
     ),
-    // إضافة ثيم الزر للوضع الداكن
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(AppColors.darkPrimaryColor),
         foregroundColor: WidgetStateProperty.all(AppColors.textIcons),
-        overlayColor: WidgetStateProperty.all(AppColors.lightPrimaryColor.withOpacity(0.1)),
+        overlayColor: WidgetStateProperty.all(AppColors.lightPrimaryColor),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
@@ -107,7 +104,6 @@ class AppThemes {
         ),
       ),
     ),
-    // إضافة ثيم حقل الإدخال للوضع الداكن
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),

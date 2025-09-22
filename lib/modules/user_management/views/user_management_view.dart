@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:net_uasge/modules/user_management/controllers/user_management_controller.dart';
 import 'package:net_uasge/modules/user_management/views/user_form_dialog.dart';
-import '../../../core/base_controllers/user_controller.dart';
 import '../../../core/constants/app_color.dart';
-import '../../../core/widgets/custom_appbar.dart';
-import '../../../core/widgets/custom_bottom_nav_bar.dart';
 import '../../../core/widgets/custom_text.dart';
 
 class UserManagementPage extends StatelessWidget {
@@ -12,12 +10,10 @@ class UserManagementPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserController controller = Get.find();
+    final UserManagementController controller = Get.find();
 
     return Scaffold(
-      appBar: const CustomAppbar(pageName: 'إدارة المستخدمين'),
 
-      // زر العمل العائم
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.dialog(const UserFormDialog());
@@ -25,11 +21,6 @@ class UserManagementPage extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
-      // شريط التنقل السفلي
-      bottomNavigationBar: CustomBottomNavBar(
-
-      ),
 
       body: Obx(
             () {

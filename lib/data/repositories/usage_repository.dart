@@ -17,4 +17,10 @@ class UsageRepository {
   Future<int> updateUsage(UsageModel usage) async {
     return await _usageStorage.updateUsage(usage);
   }
+  Future<void> clearAllUsageRecords() async {
+    return _usageStorage.clearAllUsageRecords();
+  }
+  Future<List<UsageModel>> getAllUsageRecords() async {
+    return _usageStorage.getAllUsageRecords();
+  }
 }

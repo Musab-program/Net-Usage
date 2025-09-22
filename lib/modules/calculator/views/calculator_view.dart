@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/constants/app_color.dart';
-import '../../../core/widgets/custom_appbar.dart';
-import '../../../core/widgets/custom_bottom_nav_bar.dart';
 import '../../../core/widgets/custom_text.dart';
 import '../controllers/calculator_controller.dart';
 
@@ -15,32 +13,33 @@ class CalculatorPage extends StatelessWidget {
     final isDarkMode = Get.isDarkMode;
 
     return Scaffold(
-      appBar: const CustomAppbar(pageName: 'الحاسبة',),
       body: Column(
         children: [
-          // شاشة عرض الإدخال
           Container(
             alignment: Alignment.bottomRight,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Obx(
-                  () => CustomText(
+              () => CustomText(
                 text: controller.input,
                 textFontSize: 28,
-                textColor: isDarkMode ? AppColors.textIcons : AppColors.primaryText,
+                textColor: isDarkMode
+                    ? AppColors.textIcons
+                    : AppColors.primaryText,
               ),
             ),
           ),
 
-          // شاشة عرض الناتج
           Expanded(
             child: Container(
               alignment: Alignment.bottomRight,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Obx(
-                    () => CustomText(
+                () => CustomText(
                   text: controller.output,
                   textFontSize: 48,
-                  textColor: isDarkMode ? AppColors.textIcons : AppColors.primaryText,
+                  textColor: isDarkMode
+                      ? AppColors.textIcons
+                      : AppColors.primaryText,
                 ),
               ),
             ),
@@ -48,7 +47,6 @@ class CalculatorPage extends StatelessWidget {
 
           const Divider(height: 1, thickness: 1),
 
-          // صفوف الأزرار
           _buildButtonRow(['C', '()', '⌫', '/'], controller, isDarkMode),
           _buildButtonRow(['7', '8', '9', 'x'], controller, isDarkMode),
           _buildButtonRow(['4', '5', '6', '-'], controller, isDarkMode),
@@ -56,11 +54,15 @@ class CalculatorPage extends StatelessWidget {
           _buildButtonRow(['+/-', '0', '.', '='], controller, isDarkMode),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavBar(),
+      // bottomNavigationBar: CustomBottomNavBar(selectedIndex: null,, onTabChange: (int ) {  },),
     );
   }
 
-  Widget _buildButtonRow(List<String> buttons, CalculatorController controller, bool isDarkMode) {
+  Widget _buildButtonRow(
+    List<String> buttons,
+    CalculatorController controller,
+    bool isDarkMode,
+  ) {
     return Expanded(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,7 +76,9 @@ class CalculatorPage extends StatelessWidget {
               ? AppColors.darkPrimaryColor
               : AppColors.primaryColor;
 
-          final textColor = isEquals ? AppColors.primaryText : (isDarkMode ? AppColors.textIcons : AppColors.primaryText);
+          final textColor = isEquals
+              ? AppColors.primaryText
+              : (isDarkMode ? AppColors.textIcons : AppColors.primaryText);
 
           return Expanded(
             child: Padding(

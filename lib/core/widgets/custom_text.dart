@@ -29,11 +29,9 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // الحصول على مثيل AppController
     final AppController appController = Get.find();
 
     return Obx(() {
-      // الاستماع إلى التغييرات في isDarkMode.
       final bool isDarkMode = appController.isDarkMode.value;
       final Color defaultTextColor = isDarkMode ? AppThemes.dark.colorScheme.onSurface : AppThemes.light.colorScheme.onSurface;
 

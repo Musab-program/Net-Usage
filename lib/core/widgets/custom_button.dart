@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
     this.buttonWidth,
     this.buttonHeight,
     this.buttonIcon,
-    this.buttonRadius, // لا يحتاج أن يكون required
+    this.buttonRadius,
     this.textFontSize,
     this.textFontWeight,
     this.textFontStyle,
@@ -43,15 +43,15 @@ class CustomButton extends StatelessWidget {
       final Color defaultTextColor = isDarkMode ? AppThemes.dark.colorScheme.onPrimary : AppThemes.light.colorScheme.onPrimary;
 
       return SizedBox(
-        width: buttonWidth ?? double.infinity, // القيمة الافتراضية للعرض
-        height: buttonHeight ?? 50.0, // القيمة الافتراضية للارتفاع
+        width: buttonWidth ?? double.infinity,
+        height: buttonHeight ?? 50.0,
         //The button
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: buttonColor ?? defaultButtonColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(buttonRadius ?? 10.0), // القيمة الافتراضية لنصف القطر
+              borderRadius: BorderRadius.circular(buttonRadius ?? 10.0),
             ),
             elevation: 0,
           ),
@@ -66,7 +66,7 @@ class CustomButton extends StatelessWidget {
     if (buttonText != null && buttonIcon != null) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min, // لجعل الصف يأخذ مساحة المحتوى فقط
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(buttonIcon, color: textColor ?? defaultTextColor),
           const SizedBox(width: 8),

@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+
 import '../../core/services/database_service.dart';
 import '../models/settings_model.dart';
 
@@ -22,5 +24,17 @@ class SettingsLocalStorage {
       where: 'id = ?',
       whereArgs: [1],
     );
+  }
+
+  Future<void> initializeSettings() async {
+    final db = await _dbService.database;
+    final settings = await getSettings();
+    if (settings == null) {
+      await db.insert(
+        'settings',
+        {'id': 1, 'gigabytePrice': 100.0},
+        conflictAlgorithm: ConflictAlgorithm.ignore,
+      );
+    }
   }
 }

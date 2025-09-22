@@ -21,4 +21,10 @@ class UserRepository {
   Future<void> deleteUser(int id) async {
     await _userStorage.deleteUser(id);
   }
+
+  Future<void> reconcileBalances(List<UserModel> users) async {
+    await _userStorage.reconcileBalances(users);
+  }
+
+
 }

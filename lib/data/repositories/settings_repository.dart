@@ -13,4 +13,8 @@ class SettingsRepository {
   Future<int> updateSettings(SettingsModel settings) async {
     return await _settingsStorage.updateSettings(settings);
   }
+
+  Future<void> initializeSettings() async {
+    await _settingsStorage.initializeSettings();
+  }
 }

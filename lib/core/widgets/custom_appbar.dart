@@ -12,13 +12,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     final AppController appController = Get.find();
     return AppBar(
       title: Text(pageName),
+      leading: IconButton(onPressed: (){ appController.showSettingsDialog();}, icon: Icon(Icons.settings)),
       actions: [
-        // IconButton(
-        //   icon: Icon(Icons.settings),
-        //   onPressed: () {
-        //
-        //   },
-        // ),
         IconButton(onPressed: (){
           appController.toggleTheme();
         }, icon: Icon(Icons.brightness_4))

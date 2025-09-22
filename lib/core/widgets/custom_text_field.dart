@@ -17,7 +17,7 @@ class CustomTextField extends StatelessWidget {
   final Color? hintColor;
   final Color? labelColor;
   final Color? borderColor;
-  final bool? fill;
+  final bool? isFill;
   final Color? fillColor;
 
   const CustomTextField({
@@ -25,7 +25,7 @@ class CustomTextField extends StatelessWidget {
     this.controllerText,
     this.hintText,
     this.labelText,
-    this.encryptionText = false, // جعلها بقيمة افتراضية
+    this.encryptionText = false,
     this.keyboardType,
     this.prefixIcon,
     this.suffixIcon,
@@ -34,18 +34,16 @@ class CustomTextField extends StatelessWidget {
     this.hintColor,
     this.labelColor,
     this.borderColor,
-    this.fill,
+    this.isFill,
     this.fillColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    // استخدم Obx لضمان تحديث الألوان عند تغيير الثيم
     return Obx(() {
       final AppController appController = Get.find();
       final bool isDarkMode = appController.isDarkMode.value;
 
-      // تحديد الألوان بناءً على الثيم
       final Color defaultBorderColor = isDarkMode ? AppThemes.dark.inputDecorationTheme.enabledBorder?.borderSide.color ?? Colors.grey : AppThemes.light.inputDecorationTheme.enabledBorder?.borderSide.color ?? Colors.grey;
       final Color defaultFillColor = isDarkMode ? AppThemes.dark.inputDecorationTheme.fillColor ?? Colors.black : AppThemes.light.inputDecorationTheme.fillColor ?? Colors.white;
       final Color defaultLabelColor = isDarkMode ? AppThemes.dark.inputDecorationTheme.hintStyle?.color ?? Colors.grey : AppThemes.light.inputDecorationTheme.hintStyle?.color ?? Colors.grey;
@@ -82,7 +80,7 @@ class CustomTextField extends StatelessWidget {
             vertical: 16.0,
             horizontal: 16.0,
           ),
-          filled: fill ?? true, // القيمة الافتراضية
+          filled: isFill ?? true,
           fillColor: fillColor ?? defaultFillColor,
         ),
       );
