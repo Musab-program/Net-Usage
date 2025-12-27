@@ -95,6 +95,5 @@ lib/
 |     Home Page      |     Dashboard      |  User Management   |     Dark Mode      |
 | :----------------: | :----------------: | :----------------: | :----------------: |
 | ![Screenshot_20251227-104850](https://github.com/user-attachments/assets/15452af7-4eec-4626-b1e7-b3d371ccfa4d) | ![Screenshot_20251227-104918](https://github.com/user-attachments/assets/ecee957f-fcea-4d4b-9de6-b2e975d1dd72)
- |![Screenshot_20251227-104928_One UI Home](https://github.com/user-attachments/assets/2ff364ea-aec3-4519-89eb-d73683782d05)
- | ![Screenshot_20251227-104952](https://github.com/user-attachments/assets/d75d6ac6-61b3-4d33-b633-353d623365fd)
- |
+ | ![Screenshot_20251227-104928_One UI Home](https://github.com/user-attachments/assets/2ff364ea-aec3-4519-89eb-d73683782d05) 
+ | ![Screenshot_20251227-104952](https://github.com/user-attachments/assets/d75d6ac6-61b3-4d33-b633-353d623365fd) |
