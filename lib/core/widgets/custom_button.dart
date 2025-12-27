@@ -4,18 +4,39 @@ import '../base_controllers/app_controller.dart';
 import '../utils/themes.dart';
 import 'custom_text.dart';
 
+/// A customizable button widget.
 class CustomButton extends StatelessWidget {
-  //All the properties that we can assign to button
+  /// The text to display on the button.
   final String? buttonText;
+
+  /// The callback function to execute when the button is pressed.
   final VoidCallback onPressed;
+
+  /// The background color of the button.
   final Color? buttonColor;
+
+  /// The color of the text or icon.
   final Color? textColor;
+
+  /// The font size of the text.
   final double? textFontSize;
+
+  /// The font weight of the text.
   final FontWeight? textFontWeight;
+
+  /// The font style of the text.
   final FontStyle? textFontStyle;
+
+  /// The width of the button.
   final double? buttonWidth;
+
+  /// The height of the button.
   final double? buttonHeight;
+
+  /// An optional icon to display on the button.
   final IconData? buttonIcon;
+
+  /// The border radius of the button.
   final double? buttonRadius;
 
   const CustomButton({
@@ -39,8 +60,12 @@ class CustomButton extends StatelessWidget {
     return Obx(() {
       final AppController appController = Get.find();
       final bool isDarkMode = appController.isDarkMode.value;
-      final Color defaultButtonColor = isDarkMode ? AppThemes.dark.colorScheme.primary : AppThemes.light.colorScheme.primary;
-      final Color defaultTextColor = isDarkMode ? AppThemes.dark.colorScheme.onPrimary : AppThemes.light.colorScheme.onPrimary;
+      final Color defaultButtonColor = isDarkMode
+          ? AppThemes.dark.colorScheme.primary
+          : AppThemes.light.colorScheme.primary;
+      final Color defaultTextColor = isDarkMode
+          ? AppThemes.dark.colorScheme.onPrimary
+          : AppThemes.light.colorScheme.onPrimary;
 
       return SizedBox(
         width: buttonWidth ?? double.infinity,

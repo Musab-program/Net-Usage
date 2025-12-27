@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+/// Singleton service for managing SQLite database connections.
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
   static Database? _database;
@@ -11,6 +12,7 @@ class DatabaseService {
 
   DatabaseService._internal();
 
+  /// Retrieves the existing database instance or initializes it if null.
   Future<Database> get database async {
     if (_database != null) {
       return _database!;
@@ -19,17 +21,20 @@ class DatabaseService {
     return _database!;
   }
 
+  /// Initializes the database at the default location.
+  ///
+  /// Returns the open [Database] instance.
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, 'internet_manager.db');
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _onCreate,
-    );
+    return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
+  /// Creates the database tables when the database is first created.
+  ///
+  /// [db] The database instance.
+  /// [version] The schema version.
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE users(

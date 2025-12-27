@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants/app_color.dart';
 
+/// Provides the application's light and dark themes.
 class AppThemes {
+  /// The light theme configuration.
   static final ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
@@ -38,9 +40,7 @@ class AppThemes {
         foregroundColor: WidgetStateProperty.all(AppColors.textIcons),
         overlayColor: WidgetStateProperty.all(AppColors.darkPrimaryColor),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ),
       ),
     ),
@@ -63,6 +63,7 @@ class AppThemes {
     ),
   );
 
+  /// The dark theme configuration.
   static final ThemeData dark = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
@@ -98,9 +99,7 @@ class AppThemes {
         foregroundColor: WidgetStateProperty.all(AppColors.textIcons),
         overlayColor: WidgetStateProperty.all(AppColors.lightPrimaryColor),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ),
       ),
     ),
@@ -120,7 +119,6 @@ class AppThemes {
       fillColor: AppColors.primaryText,
       filled: true,
       hintStyle: TextStyle(color: AppColors.secondaryText),
-
     ),
   );
 }

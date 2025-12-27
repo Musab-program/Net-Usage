@@ -8,12 +8,14 @@ import 'package:net_uasge/modules/home/views/home_page.dart';
 import 'package:net_uasge/modules/user_management/views/user_management_view.dart';
 import 'package:net_uasge/modules/main_screen/controllers/main_screen_controller.dart';
 
+/// The main shell widget containing the Bottom Navigation Bar and PageView.
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final MainScreenController mainController = Get.find<MainScreenController>();
+    final MainScreenController mainController =
+        Get.find<MainScreenController>();
 
     return Scaffold(
       appBar: CustomAppbar(pageName: 'مدير الإنترنت '),
@@ -28,11 +30,10 @@ class MainScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Obx(
-            () => CustomBottomNavBar(
+        () => CustomBottomNavBar(
           selectedIndex: mainController.selectedIndex.value,
           onTabChange: mainController.onItemTapped,
         ),
-
       ),
     );
   }

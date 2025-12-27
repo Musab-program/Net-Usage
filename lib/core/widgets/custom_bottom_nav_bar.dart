@@ -3,8 +3,14 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:net_uasge/core/constants/app_strings.dart';
 import 'package:net_uasge/core/utils/nav_bar_theme.dart';
 
+/// A custom bottom navigation bar widget.
+///
+/// Uses [GNav] for the navigation bar styling and interaction.
 class CustomBottomNavBar extends StatelessWidget {
+  /// The index of the currently selected tab.
   final int selectedIndex;
+
+  /// Callback function triggered when a tab is selected.
   final Function(int) onTabChange;
 
   const CustomBottomNavBar({
@@ -20,10 +26,9 @@ class CustomBottomNavBar extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black),
-        ],
+        color: isDarkMode
+            ? const Color(0xFF1E1E1E)
+            : Theme.of(context).cardColor,
       ),
       child: SafeArea(
         child: Padding(

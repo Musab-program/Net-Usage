@@ -2,9 +2,13 @@ import 'package:get/get.dart';
 import 'package:net_uasge/data/models/settings_model.dart';
 import 'package:net_uasge/data/repositories/settings_repository.dart';
 
+/// Controller for managing application settings.
+///
+/// Handles operations related to settings configuration, such as setting the gigabyte price.
 class SettingsController extends GetxController {
   final SettingsRepository _settingsRepo = Get.find<SettingsRepository>();
 
+  /// The price per gigabyte.
   var gigabytePrice = 0.0.obs;
 
   @override
@@ -29,6 +33,10 @@ class SettingsController extends GetxController {
     }
   }
 
+  /// Updates the price per gigabyte in the settings.
+  ///
+  /// [newPrice] is the new price to be set.
+  /// Updates the local storage and the observable value.
   Future<void> updateGigabytePrice(double newPrice) async {
     try {
       final currentSettings = await _settingsRepo.getSettings();

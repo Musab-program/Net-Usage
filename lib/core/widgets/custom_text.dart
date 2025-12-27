@@ -3,16 +3,30 @@ import 'package:get/get.dart';
 import '../base_controllers/app_controller.dart';
 import '../utils/themes.dart';
 
+/// A customizable text widget.
 class CustomText extends StatelessWidget {
-
-  //All the properties that we can assign to Text
+  /// The text content to display.
   final String text;
+
+  /// The color of the text.
   final Color? textColor;
+
+  /// The font size of the text.
   final double? textFontSize;
+
+  /// The alignment of the text.
   final TextAlign? textAlignment;
+
+  /// The font weight of the text.
   final FontWeight? textFontWeight;
+
+  /// The font style of the text.
   final FontStyle? textFontStyle;
+
+  /// The maximum number of lines to display.
   final int? maxLines;
+
+  /// How visual overflow should be handled.
   final TextOverflow? textOverflow;
 
   const CustomText({
@@ -33,7 +47,9 @@ class CustomText extends StatelessWidget {
 
     return Obx(() {
       final bool isDarkMode = appController.isDarkMode.value;
-      final Color defaultTextColor = isDarkMode ? AppThemes.dark.colorScheme.onSurface : AppThemes.light.colorScheme.onSurface;
+      final Color defaultTextColor = isDarkMode
+          ? AppThemes.dark.colorScheme.onSurface
+          : AppThemes.light.colorScheme.onSurface;
 
       return Text(
         text,

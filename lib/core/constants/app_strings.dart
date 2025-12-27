@@ -1,3 +1,4 @@
+/// Defines string constants used for localization and UI text.
 class AppStrings {
   static const String appName = 'مدير الإنترنت';
   static const String homePageTitle = 'الرئيسية';
@@ -5,13 +6,11 @@ class AppStrings {
   static const String userManagementPageTitle = 'إدارة المستخدمين';
   static const String calculatorPageTitle = 'الآلة الحاسبة';
 
-
   static const String addButton = 'إضافة';
   static const String saveButton = 'حفظ';
   static const String updateButton = 'تعديل';
   static const String deleteButton = 'حذف';
   static const String calculateButton = 'احسب';
-
 
   static const String userNameHint = 'اسم المستخدم';
   static const String weeklyUsageHint = 'استهلاك الأسبوع (جيجابايت)';

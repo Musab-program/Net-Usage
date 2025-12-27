@@ -7,10 +7,10 @@ import 'package:net_uasge/modules/user_management/controllers/user_management_co
 import '../../calculator/controllers/calculator_controller.dart';
 import '../../dashboard/controllers/dashboard_controller.dart';
 
+/// Dependency binding for the Main Screen and all its sub-modules.
 class MainScreenBinding extends Bindings {
   @override
   void dependencies() {
-
     Get.lazyPut<MainScreenController>(() => MainScreenController());
 
     Get.lazyPut<HomeController>(() => HomeController());
@@ -19,6 +19,5 @@ class MainScreenBinding extends Bindings {
     Get.lazyPut<DashboardController>(() => DashboardController());
     Get.find<UserController>();
     Get.find<UsageController>();
-
   }
 }
