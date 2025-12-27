@@ -94,4 +94,4 @@ lib/
 
 |     Home Page      |     Dashboard      |  User Management   |     Dark Mode      |
 | :----------------: | :----------------: | :----------------: | :----------------: |
-| _(Add Screenshot)_ | _(Add Screenshot)_ | _(Add Screenshot)_ | _(Add Screenshot)_ |
+| _![Screenshot_20251227-104850.jpg](../../Downloads/Bluetooth/Screenshot_20251227-104850.jpg)(Add Screenshot)_ | _(Add Screenshot)_ | _(Add Screenshot)_ | _(Add Screenshot)_ |
