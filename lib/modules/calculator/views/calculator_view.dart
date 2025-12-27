@@ -1,120 +1,247 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/constants/app_color.dart';
-import '../../../core/widgets/custom_text.dart';
-import '../controllers/calculator_controller.dart';
+import 'package:net_uasge/modules/calculator/controllers/calculator_controller.dart';
+import 'package:net_uasge/core/constants/app_color.dart';
+import 'package:net_uasge/core/base_controllers/app_controller.dart';
 
+/// View widget for the calculator screen.
 class CalculatorPage extends StatelessWidget {
   const CalculatorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final CalculatorController controller = Get.find<CalculatorController>();
-    final isDarkMode = Get.isDarkMode;
+    final AppController appController = Get.find<AppController>();
 
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            alignment: Alignment.bottomRight,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            child: Obx(
-              () => CustomText(
-                text: controller.input,
-                textFontSize: 28,
-                textColor: isDarkMode
-                    ? AppColors.textIcons
-                    : AppColors.primaryText,
-              ),
-            ),
-          ),
+    return Obx(() {
+      final bool isDark = appController.isDarkMode.value;
 
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomRight,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Obx(
-                () => CustomText(
-                  text: controller.output,
-                  textFontSize: 48,
-                  textColor: isDarkMode
-                      ? AppColors.textIcons
-                      : AppColors.primaryText,
+      // Define Colors based on Theme
+      final Color displayColor = isDark
+          ? Colors.black
+          : const Color(0xFFF2F2F2);
+      final Color btnColorNumber = isDark
+          ? const Color(0xFF333333)
+          : Colors.white;
+      final Color btnColorOperator =
+          AppColors.primaryColor; // Using App Primary Color
+      final Color btnColorFunction = isDark
+          ? const Color(0xFFA5A5A5)
+          : const Color(0xFFD4D4D2);
+
+      final Color txtColorNum = isDark ? Colors.white : Colors.black;
+      final Color txtColorFunc = Colors.black;
+      final Color txtColorOp = Colors.white;
+
+      return Scaffold(
+        backgroundColor: displayColor,
+        body: SafeArea(
+          child: Column(
+            children: [
+              // Display Area
+              Expanded(
+                flex: 3,
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      // Input Equation
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            controller.input.isEmpty ? ' ' : controller.input,
+                            style: TextStyle(
+                              color: isDark
+                                  ? Colors.grey
+                                  : Colors.grey.shade700,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      // Output Result
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            controller.output,
+                            style: TextStyle(
+                              color: isDark ? Colors.white : Colors.black,
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+
+              // Keypad Area
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildRow(
+                        ['⌫', 'C', '%', '/'],
+                        controller,
+                        btnColorFunction,
+                        btnColorOperator,
+                        txtColorFunc,
+                        txtColorOp,
+                        txtColorNum,
+                      ),
+                      _buildRow(
+                        ['7', '8', '9', 'x'],
+                        controller,
+                        btnColorNumber,
+                        btnColorOperator,
+                        txtColorFunc,
+                        txtColorOp,
+                        txtColorNum,
+                      ),
+                      _buildRow(
+                        ['4', '5', '6', '-'],
+                        controller,
+                        btnColorNumber,
+                        btnColorOperator,
+                        txtColorFunc,
+                        txtColorOp,
+                        txtColorNum,
+                      ),
+                      _buildRow(
+                        ['1', '2', '3', '+'],
+                        controller,
+                        btnColorNumber,
+                        btnColorOperator,
+                        txtColorFunc,
+                        txtColorOp,
+                        txtColorNum,
+                      ),
+                      _buildRow(
+                        ['+/-', '0', '.', '='],
+                        controller,
+                        btnColorNumber,
+                        btnColorOperator,
+                        txtColorFunc,
+                        txtColorOp,
+                        txtColorNum,
+                        isLastRow: true,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-
-          const Divider(height: 1, thickness: 1),
-
-          _buildButtonRow(['C', '()', '⌫', '/'], controller, isDarkMode),
-          _buildButtonRow(['7', '8', '9', 'x'], controller, isDarkMode),
-          _buildButtonRow(['4', '5', '6', '-'], controller, isDarkMode),
-          _buildButtonRow(['1', '2', '3', '+'], controller, isDarkMode),
-          _buildButtonRow(['+/-', '0', '.', '='], controller, isDarkMode),
-        ],
-      ),
-      // bottomNavigationBar: CustomBottomNavBar(selectedIndex: null,, onTabChange: (int ) {  },),
-    );
+        ),
+      );
+    });
   }
 
-  Widget _buildButtonRow(
+  Widget _buildRow(
     List<String> buttons,
     CalculatorController controller,
-    bool isDarkMode,
-  ) {
+    Color funcColor,
+    Color opColor,
+    Color funcTextColor,
+    Color opTextColor,
+    Color numTextColor, {
+    bool isLastRow = false,
+  }) {
     return Expanded(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: buttons.map((text) {
-          final isOperator = ['/', 'x', '-', '+', '⌫', '+/-'].contains(text);
-          final isClear = text == 'C';
-          final isEquals = text == '=';
-          final buttonColor = isEquals
-              ? AppColors.accentColor
-              : isOperator || isClear
-              ? AppColors.darkPrimaryColor
-              : AppColors.primaryColor;
+          Color bgColor;
+          Color txtColor;
 
-          final textColor = isEquals
-              ? AppColors.primaryText
-              : (isDarkMode ? AppColors.textIcons : AppColors.primaryText);
+          if (['C', '()', '%', '⌫'].contains(text)) {
+            bgColor = funcColor;
+            txtColor = funcTextColor;
+          } else if (['/', 'x', '-', '+', '='].contains(text)) {
+            bgColor = opColor;
+            txtColor = opTextColor;
+          } else {
+            // Numbers
+            if (numTextColor == Colors.white) {
+              // Dark Mode logic passed
+              bgColor = const Color(0xFF333333);
+              txtColor = Colors.white;
+            } else {
+              // Light Mode logic passed
+              bgColor = Colors.white;
+              txtColor = Colors.black;
+            }
+          }
 
           return Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (text == 'C') {
-                    controller.clear();
-                  } else if (text == '⌫') {
-                    controller.deleteLast();
-                  } else if (text == '=') {
-                    controller.calculate();
-                  } else if (text == '+/-') {
-                    controller.toggleSign();
-                  } else if (isOperator) {
-                    controller.addOperator(text);
-                  } else {
-                    controller.addInput(text);
-                  }
+              padding: const EdgeInsets.all(6.0),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return ElevatedButton(
+                    onPressed: () => _handlePress(text, controller),
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      backgroundColor: bgColor,
+                      padding: const EdgeInsets.all(16),
+                      elevation: 0,
+                    ),
+                    child: FittedBox(
+                      child: text == '⌫'
+                          ? Icon(
+                              Icons.backspace_outlined,
+                              color: txtColor,
+                              size: 28,
+                            )
+                          : Text(
+                              text,
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w400,
+                                color: txtColor,
+                              ),
+                            ),
+                    ),
+                  );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColor,
-                  foregroundColor: textColor,
-                  shape: const CircleBorder(),
-                  padding: EdgeInsets.zero,
-                ),
-                child: CustomText(
-                  text: text,
-                  textColor: textColor,
-                  textFontSize: 24,
-                ),
               ),
             ),
           );
         }).toList(),
       ),
     );
+  }
+
+  void _handlePress(String text, CalculatorController controller) {
+    if (text == 'C') {
+      controller.clear();
+    } else if (text == '⌫' || text == '<') {
+      controller.deleteLast();
+    } else if (text == '=') {
+      controller.calculate();
+    } else if (text == '+/-') {
+      controller.toggleSign();
+    } else if (['/', 'x', '-', '+', '%'].contains(text)) {
+      controller.addOperator(text);
+    } else {
+      controller.addInput(text);
+    }
   }
 }

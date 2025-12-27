@@ -1,8 +1,18 @@
+/// Model representing a single internet usage record.
 class UsageModel {
+  /// Unique ID of the record.
   final int? id;
+
+  /// ID of the user associated with this record.
   final int userId;
+
+  /// The amount of data used (in GB).
   final double weeklyUsage;
+
+  /// The amount paid by the user.
   final double amountPaid;
+
+  /// The date of the record.
   final String recordDate;
 
   UsageModel({
@@ -13,6 +23,7 @@ class UsageModel {
     required this.recordDate,
   });
 
+  /// Converts the model to a map for database storage.
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -23,6 +34,7 @@ class UsageModel {
     };
   }
 
+  /// Creates a [UsageModel] from a map.
   factory UsageModel.fromMap(Map<String, dynamic> map) {
     return UsageModel(
       id: map['id'] as int?,

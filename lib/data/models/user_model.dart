@@ -1,35 +1,40 @@
 import 'package:get/get.dart';
 import 'package:net_uasge/data/models/usage_model.dart';
 
+/// Model representing a user of the application.
 class UserModel {
+  /// Unique ID of the user.
   final int? id;
+
+  /// Name of the user.
   final String name;
-  // اجعل remainingBalance متغيراً مراقباً باستخدام .obs
+
+  /// Observable remaining balance.
+  /// Used for reactive state management.
   final remainingBalance = 0.0.obs;
+
+  /// List of usage records associated with the user.
   List<UsageModel>? usageRecords;
 
-  // إضافة متغير مراقب لحالة التوسع
+  /// Observable for UI expansion state in lists.
   final isExpanded = false.obs;
 
   UserModel({
     this.id,
     required this.name,
-    required double remainingBalance, // غيرنا هذا ليكون required
+    required double remainingBalance,
     this.usageRecords,
   }) {
-    // تعيين القيمة الأولية للمتغير المراقب
+    // Initialize the observable value
     this.remainingBalance.value = remainingBalance;
   }
 
+  /// Converts the model to a map for database storage.
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      // استخدم .value للحصول على القيمة
-      'remainingBalance': remainingBalance.value,
-    };
+    return {'id': id, 'name': name, 'remainingBalance': remainingBalance.value};
   }
 
+  /// Creates a [UserModel] from a map.
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'] as int?,

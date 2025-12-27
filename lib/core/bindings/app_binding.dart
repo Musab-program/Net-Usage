@@ -11,7 +11,9 @@ import '../base_controllers/settings_controller.dart';
 import '../base_controllers/user_controller.dart';
 import '../services/database_service.dart';
 
+/// Dependency injection binding for core application dependencies.
 class AppBindings extends Bindings {
+  /// Registers dependencies.
   @override
   void dependencies() {
     Get.put<DatabaseService>(DatabaseService());
@@ -21,16 +23,20 @@ class AppBindings extends Bindings {
     Get.lazyPut<UsageLocalStorage>(() => UsageLocalStorage());
     Get.lazyPut<SettingsLocalStorage>(() => SettingsLocalStorage());
 
-    Get.lazyPut<UserRepository>(() => UserRepository(Get.find<UserLocalStorage>()));
-    Get.lazyPut<UsageRepository>(() => UsageRepository(Get.find<UsageLocalStorage>()));
-    Get.lazyPut<SettingsRepository>(() => SettingsRepository(Get.find<SettingsLocalStorage>()));
-
+    Get.lazyPut<UserRepository>(
+      () => UserRepository(Get.find<UserLocalStorage>()),
+    );
+    Get.lazyPut<UsageRepository>(
+      () => UsageRepository(Get.find<UsageLocalStorage>()),
+    );
+    Get.lazyPut<SettingsRepository>(
+      () => SettingsRepository(Get.find<SettingsLocalStorage>()),
+    );
 
     // Get.lazyPut<SettingsController>(() => SettingsController());
     Get.lazyPut<UserController>(() => UserController());
     Get.lazyPut<UsageController>(() => UsageController());
 
     Get.put<SettingsController>(SettingsController());
-
   }
 }
